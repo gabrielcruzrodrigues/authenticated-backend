@@ -18,6 +18,7 @@ public class UserService implements UserDetailsService {
     @Autowired
     private PasswordEncoder encoder;
 
+    //3°
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -27,7 +28,7 @@ public class UserService implements UserDetailsService {
         Set<Role> roles = new HashSet<>();
         roles.add(new Role(1, "USER"));
 
-
+        //return user of the database and verify if the password where correct for authentication
         return new ApplicationUser(1, "Ethan", encoder.encode("password"), roles);
     }
 }

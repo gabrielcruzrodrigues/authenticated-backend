@@ -20,19 +20,20 @@ public class SecurityConfiguration {
         return new BCryptPasswordEncoder();
     }
 
+    //2°
     @Bean
-    public AuthenticationManager authManager(UserDetailsService detailsService) {
+    public AuthenticationManager authManager(UserDetailsService detailsService) {  //request UserDetailsService
         DaoAuthenticationProvider daoProvider = new DaoAuthenticationProvider();
         daoProvider.setUserDetailsService(detailsService);
         return new ProviderManager(daoProvider);
     }
 
-
+    //1°
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
+                .authorizeHttpRequests(auth -> auth.anyRequest().authenticated()) //request AuthenticationManager
                 .httpBasic(Customizer.withDefaults())
                 .build();
     }
