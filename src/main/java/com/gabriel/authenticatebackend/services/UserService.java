@@ -2,6 +2,7 @@ package com.gabriel.authenticatebackend.services;
 
 import com.gabriel.authenticatebackend.model.ApplicationUser;
 import com.gabriel.authenticatebackend.model.Role;
+import com.gabriel.authenticatebackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,17 +19,13 @@ public class UserService implements UserDetailsService {
     @Autowired
     private PasswordEncoder encoder;
 
+    @Autowired
+    private UserRepository userRepository;
+
     //3°
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
         System.out.println("in the user details service");
-        if(!username.equals("Ethan")) throw new UsernameNotFoundException("not Ethan");
-
-        Set<Role> roles = new HashSet<>();
-        roles.add(new Role(1, "USER"));
-
-        //return user of the database and verify if the password where correct for authentication
-        return new ApplicationUser(1, "Ethan", encoder.encode("password"), roles);
+        return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("user not found!"));
     }
 }
