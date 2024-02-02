@@ -15,7 +15,7 @@ public class RsaKeyProperties {
     public RsaKeyProperties() throws IllegalAccessException {
         KeyPair keyPair = KeyGeneratorUtility.generateRsaKey();
         this.publicKey = (RSAPublicKey) keyPair.getPublic();
-        this.privateKey = (RSAPrivateKey) keyPair.getPublic();
+        this.privateKey = (RSAPrivateKey) keyPair.getPrivate();
     }
 
     public RSAPublicKey getPublicKey() {
